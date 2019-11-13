@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: ci-cd-demo
+  name: ci-cd-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ci-cd-demo
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ci-cd-demo
+    spec:
+      containers:
+      - image: pmcgrath/ci-cd-demo:PENDING
+        imagePullPolicy: Always
+        name: demo
+      securityContext:
+        runAsGroup: 65533
+        runAsNonRoot: true
+        runAsUser: 65534      
