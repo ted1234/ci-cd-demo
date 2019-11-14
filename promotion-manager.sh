@@ -26,7 +26,7 @@ update-git-with-env-values() {
 	image_digest=${3}
 
 	update-env-values-file ${env} ${source_commit} ${image_digest}
-	commit_message="Updating values for ${env} on source commit ${commit}"
+	commit_message="Updating values for ${env} on source commit ${source_commit}"
 	git commit -am "${commit_message}"
 	git push
 }
