@@ -27,12 +27,12 @@ jobs:
 
 
 
-workflows:
-  build-and-push-image:
-    jobs:
-    - build-and-push-image:
-        filters:
-          # Only allow from this point on for the master branch
-          branches:
-            only:
-            - master
+#workflows:
+#  build-and-push-image:
+#    jobs:
+#    - build-and-push-image:
+#        filters:
+#          # Only allow from this point on for the master branch
+#          branches:
+#            only:
+#            - master
