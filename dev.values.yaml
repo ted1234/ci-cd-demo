@@ -1,0 +1,6 @@
+# These are subject to update via CI
+imageDigest:
+sourceCommit:
+
+# Static values
+replicas: 1
