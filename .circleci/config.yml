@@ -22,7 +22,8 @@ jobs:
           git branch -a
           git remote -v
           cat ~/.gitconfig
- 
+          docker info
+
 
 
 workflows:
