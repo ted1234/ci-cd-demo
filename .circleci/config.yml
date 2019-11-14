@@ -1,0 +1,36 @@
+# See https://circleci.com/docs/2.0/configuration-reference/
+version: 2.1
+
+
+
+references:
+  # See https://circleci.com/docs/2.0/circleci-images/
+  container-config: &container-config
+    docker:
+    - image: circleci/golang:latest
+
+
+
+jobs:
+  j-1:
+    <<: *container-config
+    steps:
+    - checkout
+    - run:
+        name: Git info
+        command: |
+          git branch -a
+          git remote -v
+          cat ~/.gitconfig
+ 
+
+
+workflows:
+  wf-1:
+    jobs:
+    - j-1:
+        filters:
+          # Only allow from this point on for the master branch
+          branches:
+            only:
+            - master
