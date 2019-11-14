@@ -34,7 +34,7 @@ commit-with-env-values() {
 
 	update-env-values-file ${values_file_name} ${source_commit} ${image_digest}
 
-	commit_message="Updating values in ${values_file_name} on source commit ${source_commit}"
+	commit_message="Promoted values in ${values_file_name} on source commit ${source_commit}"
 	git commit -am "${commit_message}"
 }
 
