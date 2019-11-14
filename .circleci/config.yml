@@ -1,23 +1,30 @@
 # See https://circleci.com/docs/2.0/configuration-reference/
 version: 2.1
 
+
+
+# Don't need a worflow if you have a job named build, our use case is simple here
 jobs:
-  build-and-push-image:
-    docker: 
-    - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
+  build:
+    branches:
+      only:
+      - master
+    # See https://circleci.com/docs/2.0/executor-types/#using-machine
+    # Here we need to use a VM as we need access to the docker daemon, could find no DIND at https://circleci.com/docs/2.0/circleci-images/
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
-    - checkout # check out the code in the project directory
-    - run: echo "hello world" # run the `echo` command
-
-
-
-
-#workflows:
-#  build-and-push-image:
-#    jobs:
-#    - build-and-push-image:
-#        filters:
-#          # Only allow from this point on for the master branch
-#          branches:
-#            only:
-#            - master
+    - checkout
+    - run:
+        name: Build Image
+        command: |
+          git branch -a
+          git remote -v
+          cat ~/.gitconfig
+          docker image ls
+          docker build -t ted:1.0 .
+          docker image ls
+    - run:
+        name: Push Image
+        command: |
+          docker image ls
