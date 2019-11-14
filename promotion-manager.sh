@@ -16,23 +16,26 @@ abc-update-git-with-env-values() {
 
 
 
-
-
-
+get-env-values-file-name() { 
+	echo ${env}.values.yaml 
+}
 
 update-git-with-env-values() {
 	env=${1}
 	source_commit=${2}
 	image_digest=${3}
 
-	update-env-values-file ${env} ${source_commit} ${image_digest}
-	commit_message="Updating values for ${env} on source commit ${source_commit}"
+	values_file_name=$(get-env-values-file-name ${env})
+
+	update-env-values-file ${values_file_name} ${source_commit} ${image_digest}
+
+	commit_message="Updating values in ${values_file_name} on source commit ${source_commit}"
 	git commit -am "${commit_message}"
 	git push
 }
 
 update-env-values-file() {
-	env=${1}
+	file_name=${1}
 	source_commit=${2}
 	image_digest=${3}
 
@@ -41,7 +44,7 @@ update-env-values-file() {
 	sed_arg+="s/^imageDigest:.*/imageDigest: ${image_digest}/; "
 	sed_arg+="s/^sourceCommit:.*/sourceCommit: ${source_commit}/; "
 
-	sed -i "${sed_arg}" ${env}.values.yaml
+	sed -i "${sed_arg}" ${file_name}
 }
 
 

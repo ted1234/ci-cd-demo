@@ -1,6 +1,6 @@
 # These are subject to update via CI
 imageDigest: long-image-digest
-sourceCommit: khdfkjshdfkjsdf-source-commit-kjksdfhfj
+sourceCommit: source-commit-kjksdfhfj
 
 # Static values
 replicas: 2
