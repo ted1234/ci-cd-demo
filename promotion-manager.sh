@@ -1,26 +1,31 @@
 #!/bin/bash
 set -e
 
+# Main command functions
+promote-using-a-pr() {
+	env=${1}
+	source_commit=${2}
+	image_digest=${3}
 
-abc-update-git-with-env-values() {
-	# This is outside this
-	# env commit digest
-	
-
-	git branch -b "promote-to-$env-for-$commit-on-${timestamp}"
-	update env values in env file
-	git commit
+	git branch -b "promote-to-$env-for-source-commit-$commit"
+	commit-with-env-values $env ${source_commit} ${image_digest}
+	git set
 	git push
-	git create PR
+	# Create PR
+}
+
+promote-on-current-branch() {
+	env=${1}
+	source_commit=${2}
+	image_digest=${3}
+
+	commit-with-env-values $env ${source_commit} ${image_digest}
+	git push
 }
 
 
-
-get-env-values-file-name() { 
-	echo ${env}.values.yaml 
-}
-
-update-git-with-env-values() {
+# Helper functions
+commit-with-env-values() {
 	env=${1}
 	source_commit=${2}
 	image_digest=${3}
@@ -31,7 +36,10 @@ update-git-with-env-values() {
 
 	commit_message="Updating values in ${values_file_name} on source commit ${source_commit}"
 	git commit -am "${commit_message}"
-	git push
+}
+
+get-env-values-file-name() { 
+	echo ${env}.values.yaml 
 }
 
 update-env-values-file() {
