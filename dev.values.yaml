@@ -1,6 +1,7 @@
 # These are subject to update via CI
 imageDigest:
 sourceCommit:
+sourceShortCommit:
 
 # Static values
 replicas: 1
