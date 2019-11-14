@@ -3,18 +3,18 @@ version: 2.1
 
 
 
-#references:
-#  # See https://circleci.com/docs/2.0/circleci-images/
-#  container-config: &container-config
-#    docker:
-#    - image: circleci/golang:latest
+references:
+  # See https://circleci.com/docs/2.0/executor-types/#using-machine
+  # Here we need to use a VM as we need access to the docker daemon, could find no DIND at https://circleci.com/docs/2.0/circleci-images/
+  host-config: &host-config
+    machine:
+    - image: image: ubuntu-1604:201903-01
 
 
 
 jobs:
-  #  j-1:
-  #    <<: *container-config
   j-1:
+     <<: *machine-config
     steps:
     - checkout
     - run:
