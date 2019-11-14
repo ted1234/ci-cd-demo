@@ -11,7 +11,7 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
     - checkout
-    - build:
+    - run:
         name: Build
         command: |
           git branch -a
@@ -20,7 +20,7 @@ jobs:
           docker image ls
           docker build -t ted:1.0 .
           docker image ls
-    - push:
+    - run:
         name: Push
         command: |
           docker image ls
