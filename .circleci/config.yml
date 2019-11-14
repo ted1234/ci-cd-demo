@@ -3,22 +3,16 @@ version: 2.1
 
 
 
-references:
-  # See https://circleci.com/docs/2.0/executor-types/#using-machine
-  # Here we need to use a VM as we need access to the docker daemon, could find no DIND at https://circleci.com/docs/2.0/circleci-images/
-  host-config: &host-config
-    machine:
-    - image: ubuntu-1604:201903-01
-
-
-
 jobs:
-  j-1:
-     <<: *machine-config
+  build-and-push-image:
+    # See https://circleci.com/docs/2.0/executor-types/#using-machine
+    # Here we need to use a VM as we need access to the docker daemon, could find no DIND at https://circleci.com/docs/2.0/circleci-images/
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
     - checkout
-    - run:
-        name: Git info
+    - build:
+        name: Build
         command: |
           git branch -a
           git remote -v
@@ -26,12 +20,17 @@ jobs:
           docker image ls
           docker build -t ted:1.0 .
           docker image ls
+    - push:
+        name: Push
+        command: |
+          docker image ls
+
 
 
 workflows:
-  wf-1:
+  build-and-push-image:
     jobs:
-    - j-1:
+    - build-and-push-image:
         filters:
           # Only allow from this point on for the master branch
           branches:
