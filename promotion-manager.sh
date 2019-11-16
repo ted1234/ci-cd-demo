@@ -16,14 +16,10 @@ promote-using-a-pr() {
 	commit-with-env-values $env ${source_commit} ${source_short_commit} ${image_digest}
 	git push --set-upstream origin ${pr_branch}
 	git push
+	git checkout ${initial_branch}
 
 	# Create PR
-	# See https://developer.github.com/v3/pulls/#create-a-pull-request
-	pr_url=$(get-repo-pr-url)
-	pr_payload=$(printf '{"base": "%s", "body": "%s", "head": "%s", "title": "%s"' master "Please accept" ${pr_branch} ${pr_branch})
-	curl -X POST -H "Authorization: token ${github_pat}" -H 'Content-Type: application/json' -d "${pr_payload}" ${pr_url}
-
-	git checkout ${initial_branch}
+	create-pr ${github_pat} master ${pr_branch} ${pr_branch} "Please accept"
 }
 
 promote-on-current-branch() {
@@ -50,6 +46,20 @@ commit-with-env-values() {
 
 	commit_message="Promoted values in ${values_file_name} on source commit ${source_commit}"
 	git commit -am "${commit_message}"
+}
+
+create-pr() {
+	github_pat=${1}
+	pr_taget_branch=${2}
+	pr_branch=${3}
+	pr_title=${4}
+	pr_message=${5}
+
+	# Create PR
+	# See https://developer.github.com/v3/pulls/#create-a-pull-request
+	pr_url=$(get-repo-pr-url)
+	pr_payload=$(printf '{"base": "%s", "body": "%s", "head": "%s", "title": "%s"' ${pr_target_branch} "${pr_message}" ${pr_branch} "${pr_title}")
+	curl -X POST -H "Authorization: token ${github_pat}" -H 'Content-Type: application/json' -d "${pr_payload}" ${pr_url}
 }
 
 get-env-values-file-name() {
