@@ -50,7 +50,7 @@ commit-with-env-values() {
 
 create-pr() {
 	github_pat=${1}
-	pr_taget_branch=${2}
+	pr_target_branch=${2}
 	pr_branch=${3}
 	pr_title=${4}
 	pr_message=${5}
@@ -58,7 +58,7 @@ create-pr() {
 	# Create PR
 	# See https://developer.github.com/v3/pulls/#create-a-pull-request
 	pr_url=$(get-repo-pr-url)
-	pr_payload=$(printf '{"base": "%s", "body": "%s", "head": "%s", "title": "%s"' ${pr_target_branch} "${pr_message}" ${pr_branch} "${pr_title}")
+	pr_payload=$(printf '{"base": "%s", "body": "%s", "head": "%s", "title": "%s"}' ${pr_target_branch} "${pr_message}" ${pr_branch} "${pr_title}")
 	curl -X POST -H "Authorization: token ${github_pat}" -H 'Content-Type: application/json' -d "${pr_payload}" ${pr_url}
 }
 
