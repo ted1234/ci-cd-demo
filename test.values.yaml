@@ -4,4 +4,5 @@ sourceCommit:
 sourceShortCommit:
 
 # Static values
+namespace: ci-cd-demo-test
 replicas: 2
