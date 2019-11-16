@@ -1,7 +1,7 @@
 # These are subject to update via CI
-imageDigest: sha256:227412abb504d85a2be50799a2b372b1ebd9eb6aeed99422808f8f8dc7979c3d
-sourceCommit: 4bf2144c70139c99ec687ef9ef118ac434981ed0
-sourceShortCommit: 4bf2144
+imageDigest: image-digest
+sourceCommit: source-commit
+sourceShortCommit: source-short-commit
 
 # Static values
 namespace: ci-cd-demo-dev
