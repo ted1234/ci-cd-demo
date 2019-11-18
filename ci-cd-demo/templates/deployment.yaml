@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "ci-cd-demo.labels" . | nindent 4 }}
+  name: {{ include "ci-cd-demo.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ci-cd-demo.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ci-cd-demo.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+        imagePullPolicy: Always
+        name: {{ .Chart.Name }}
+      securityContext:
+        runAsGroup: 65533
+        runAsNonRoot: true
+        runAsUser: 65534 
