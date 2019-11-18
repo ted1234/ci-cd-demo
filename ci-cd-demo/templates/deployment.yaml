@@ -4,6 +4,7 @@ metadata:
   labels:
     {{- include "ci-cd-demo.labels" . | nindent 4 }}
   name: {{ include "ci-cd-demo.fullname" . }}
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:

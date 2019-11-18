@@ -59,7 +59,7 @@ create-pr() {
 	# See https://developer.github.com/v3/pulls/#create-a-pull-request
 	pr_url=$(get-repo-pr-url)
 	pr_payload=$(printf '{"base": "%s", "body": "%s", "head": "%s", "title": "%s"}' ${pr_target_branch} "${pr_message}" ${pr_branch} "${pr_title}")
-	curl -X POST -H "Authorization: token ${github_pat}" -H 'Content-Type: application/json' -d "${pr_payload}" ${pr_url}
+	curl -X POST -u "${github_pat}" -H 'Content-Type: application/json' -d "${pr_payload}" ${pr_url}
 }
 
 get-env-values-file-name() {
