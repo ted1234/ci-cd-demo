@@ -3,6 +3,8 @@ Line 1
 Line 2
 
 - Diagram
-<img src="https://camo.githubusercontent.com/cabc3ac88fc6e5f89a8194546e18771ea5f2da26/687474703a2f2f6a67726170682e6769746875622e696f2f64726177696f2d6769746875622f6469616772616d2e706e67" />
+![CI/CD workflow](./ci-cd-workflow.png)
+
+
 - After
 
