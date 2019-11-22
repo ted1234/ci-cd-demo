@@ -1,0 +1,10 @@
+kind: pipeline
+name: default
+
+steps:
+- name: alpine
+  image: alpine
+  commands:
+  - echo In alpine
+  - uname -a
+  - hostname
